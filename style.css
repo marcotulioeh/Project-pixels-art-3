@@ -1,24 +1,24 @@
 .color {
-    display: inline-block;
-    width: 75px;
-    height: 75px;
-    border: 1px solid black;
-    margin: 5px;
-    margin-left: 0%;
+  display: inline-block;
+  width: 75px;
+  height: 75px;
+  border: 1px solid black;
+  margin: 5px;
+  margin-left: 0%;
 }
 
 #pixel-board {
-    width: 450px;
-    height: 450px;
-    line-height: 0;
+  width: 450px;
+  height: 450px;
+  line-height: 0;
 }
 
 /* Faça com que cada elemento do quadro de pixels possua 40 pixels de largura, 40 pixels de altura e seja delimitado por uma borda preta de 1 pixel. */
 .pixel {
-    width: 40px;
-    height: 40px;
-    padding: 20px;
-    border: 1px solid black;
-    display: inline-block;
-    background-color: white;
+  width: 40px;
+  height: 40px;
+  padding: 20px;
+  border: 1px solid black;
+  display: inline-block;
+  background-color: white;
 }
