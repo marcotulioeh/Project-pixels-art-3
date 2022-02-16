@@ -20,11 +20,11 @@ function colorPixel(event) {
   pixelSelect.style.backgroundColor = document.querySelector('.selected').style.backgroundColor;
 }
 
-function selectedColor(event) {
-  const colorSelected = document.querySelector('.selected');
-  colorSelected.classList.remove('selected');
-  event.target.classList.add('selected');
-}
+// function selectedColor(event) {
+//   const colorSelected = document.querySelector('.selected');
+//   colorSelected.classList.remove('selected');
+//   event.target.classList.add('selected');
+// }
 
 const pixelBord = document.getElementById('pixel-board');
 
