@@ -1,73 +1,99 @@
-// Adicione à página uma paleta contendo quatro cores distintas.
-// Adicione a cor preta como a primeira cor da paleta de cores.
-const createColorPalette = document.getElementById('color-palette');
+const pixelBoard = document.getElementById('pixel-board');
+const buttonSize = document.getElementById('generate-board');
+
+function randomColor() {
+  const red = Math.floor(Math.random() * 255);
+  const green = Math.floor(Math.random() * 255);
+  const blue = Math.floor(Math.random() * 255);
+  return `rgb(${red},${green},${blue})`;
+}
 
 function createColor() {
+  const boardColor = document.getElementById('color-palette');
+  const arrayColor = ['black', randomColor(), randomColor(), randomColor()];
+  for (let i = 0; i < arrayColor.length; i += 1) {
+    boardColor.children[i].style.backgroundColor = arrayColor[i];
+    if (arrayColor[i] === 'black') {
+      boardColor.children[0].className = 'color selected';
+    } else {
+      boardColor.children[i].className = 'color';
+    }
+  }
+}
+
+function boardSize(someBoard) {
+  for (let i = 1; i <= someBoard ** 2; i += 1) {
+    const createPixel = document.createElement('div');
+    pixelBoard.appendChild(createPixel);
+    createPixel.className = 'pixel';
+    // pixelBoard.style.width = `${(someBoard ** 2) * 10}px`;
+  }
+}
+
+function clearBoard() {
+  while (pixelBoard.hasChildNodes()) {
+    pixelBoard.removeChild(pixelBoard.lastChild);
+  }
+}
+
+function AlertMsg() {
+  const someBoard = document.getElementById('board-size').value;
+  if (!someBoard) {
+    window.alert('Board inválido!');
+  }
+}
+
+function pixelsBoard() {
+  let someBoard = document.getElementById('board-size').value;
+  if (someBoard < 5) {
+    someBoard = 5;
+  } else if (someBoard > 50) {
+    someBoard = 50;
+  }
+  clearBoard();
+  boardSize(someBoard);
+}
+
+function vqv() {
+  buttonSize.addEventListener('click', pixelsBoard);
+  buttonSize.addEventListener('click', AlertMsg);
+}
+
+function clear() {
+  const buttonClear = document.getElementById('clear-board');
+  buttonClear.addEventListener('click', pixelsBoard);
+}
+
+function colorPaint(color) {
+  const colored = document.querySelector('.selected').style.backgroundColor;
+  const coloredPaint = color.target;
+  if (color.target.className === 'pixel') {
+    coloredPaint.style.backgroundColor = colored;
+  }
+}
+
+function pixelsPaint() {
+  pixelBoard.addEventListener('click', colorPaint);
+}
+
+function colorCall(color) {
+  document.querySelector('.selected').className = 'color';
+  const singleColor = color;
+  singleColor.target.className = 'color selected';
+}
+
+function selectColor() {
+  const colorSelect = document.getElementsByClassName('color');
   for (let i = 0; i < 4; i += 1) {
-    const createDiv = document.createElement('div');
-    createDiv.classList.add('color');
-    createColorPalette.appendChild(createDiv);
-  }
-  const colorPaletas = document.querySelectorAll('.color');
-  colorPaletas[0].style.background = 'black';
-  colorPaletas[1].style.background = 'red';
-  colorPaletas[2].style.background = 'blue';
-  colorPaletas[3].style.background = 'green';
-}
-createColor();
-
-// Adicione à página um quadro de pixels, com 25 pixels.
-const pixelBord = document.getElementById('pixel-board');
-
-function createPixel() {
-  for (let i = 0; i < 25; i += 1) {
-    const pixel = document.createElement('div');
-    pixel.classList.add('pixel');
-    pixelBord.appendChild(pixel);
-  }
-}
-createPixel();
-
-// Defina a cor preta como cor inicial. Ao carregar a página, a cor preta já deve estar selecionada para pintar os pixels
-const selectedBlack = document.querySelectorAll('.color')[0];
-selectedBlack.classList.add('selected');
-
-// Adiciona e muda a classe 'selected' ao selecionar a cor na paleta.
-const selectPalette = document.querySelectorAll('.color');
-
-function removeSelected() {
-  for (let i = 0; i < selectPalette.length; i += 1) {
-    selectPalette[i].classList.remove('selected');
+    colorSelect[i].addEventListener('click', colorCall);
   }
 }
 
-// Clicar em uma das cores da paleta faz com que ela seja selecionada e utilizada para preencher os pixels no quadro.
-function addSelected(color) {
-  removeSelected();
-  color.target.classList.add('selected');
-}
-
-// Adiciona click nas 4 cores da paleta de cores.
-for (let i = 0; i < selectPalette.length; i += 1) {
-  selectPalette[i].addEventListener('click', addSelected);
-}
-
-// Clicar em um pixel dentro do quadro após selecionar uma cor na paleta faz com que o pixel seja preenchido com a cor selecionada.
-function pixelPaint(square) {
-  const squareTarget = square.target;
-  squareTarget.style.backgroundColor = document.querySelector('.selected').style.backgroundColor;
-}
-
-// Adiciona click nos pixels em branco.
-for (let i = 0; i < document.querySelectorAll('.pixel').length; i += 1) {
-  document.querySelectorAll('.pixel')[i].addEventListener('click', pixelPaint);
-}
-
-// Crie um botão que, ao ser clicado, limpa o quadro preenchendo a cor de todos seus pixels com branco.
-function buttonClear() {
-  const squadAll = document.querySelectorAll('.pixel');
-  for (let i = 0; i < squadAll.length; i += 1) {
-    squadAll[i].style.backgroundColor = 'white';
-  }
-}
-document.getElementById('clear-board').addEventListener('click', buttonClear);
+window.onload = function init() {
+  pixelsBoard();
+  createColor();
+  selectColor();
+  pixelsPaint();
+  vqv();
+  clear();
+};
