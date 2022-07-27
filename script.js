@@ -1,14 +1,14 @@
 const pixelBoard = document.getElementById('pixel-board');
 const buttonSize = document.getElementById('generate-board');
 
-function randomColor() {
+const randomColor = () => {
   const red = Math.floor(Math.random() * 255);
   const green = Math.floor(Math.random() * 255);
   const blue = Math.floor(Math.random() * 255);
   return `rgb(${red},${green},${blue})`;
-}
+};
 
-function createColor() {
+const createColor = () => {
   const boardColor = document.getElementById('color-palette');
   const arrayColor = ['black', randomColor(), randomColor(), randomColor()];
   for (let i = 0; i < arrayColor.length; i += 1) {
@@ -19,14 +19,13 @@ function createColor() {
       boardColor.children[i].className = 'color';
     }
   }
-}
+};
 
 function boardSize(someBoard) {
-  for (let i = 1; i <= someBoard ** 2; i += 1) {
+  for (let i = 0; i < someBoard ** 2; i += 1) {
     const createPixel = document.createElement('div');
     pixelBoard.appendChild(createPixel);
     createPixel.className = 'pixel';
-    // pixelBoard.style.width = `${(someBoard ** 2) * 10}px`;
   }
 }
 
